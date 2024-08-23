@@ -8,14 +8,24 @@ telegram:
       delay:
         value: 10
         unit: MINUTES
+    collect:
+      delay:
+        value: 2
+        unit: MINUTES
+
 
 binance:
   api:
     getPrice: https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT
 
-db:
-  driver:
-    name: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5432/db
-  user: root
-  password: root
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate.ddl-auto: create

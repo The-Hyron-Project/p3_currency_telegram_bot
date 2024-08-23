@@ -18,27 +18,29 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 @AllArgsConstructor
 public class GetPriceCommand implements IBotCommand {
 
-    private final CryptoCurrencyService service;
+  private final CryptoCurrencyService service;
+  static Double bitPrice;
 
-    @Override
-    public String getCommandIdentifier() {
-        return "get_price";
-    }
+  @Override
+  public String getCommandIdentifier() {
+    return "get_price";
+  }
 
-    @Override
-    public String getDescription() {
-        return "Возвращает цену биткоина в USD";
-    }
+  @Override
+  public String getDescription() {
+    return "Возвращает цену биткоина в USD";
+  }
 
-    @Override
-    public void processMessage(AbsSender absSender, Message message, String[] arguments) {
-        SendMessage answer = new SendMessage();
-        answer.setChatId(message.getChatId());
-        try {
-            answer.setText("Текущая цена биткоина " + TextUtil.toString(service.getBitcoinPrice()) + " USD");
-            absSender.execute(answer);
-        } catch (Exception e) {
-            log.error("Ошибка возникла /get_price методе", e);
-        }
+  @Override
+  public void processMessage(AbsSender absSender, Message message, String[] arguments) {
+    SendMessage answer = new SendMessage();
+    answer.setChatId(message.getChatId());
+    try {
+      answer.setText(
+          "Текущая цена биткоина " + TextUtil.toString(service.getBitcoinPrice()) + " USD");
+      absSender.execute(answer);
+    } catch (Exception e) {
+      log.error("Ошибка возникла в /get_price методе", e);
     }
+  }
 }
